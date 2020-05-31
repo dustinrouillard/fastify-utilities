@@ -24,8 +24,8 @@ export async function Validate(object: any, constraints: { [key: string]: Valida
   if (typeof object != 'object') throw { error: 'not_an_object' };
   if (Object.keys(object).length <= 0) throw { error: 'missing_object' };
 
-  // Check if exact option is set and check if the string is set
-  if (options?.exact && JSON.stringify(Object.keys(object).sort()) != JSON.stringify(Object.keys(constraints).sort())) throw { error: 'object_not_exact' };
+  // Check if strict option is set and check if the string is set
+  if (options?.strict && JSON.stringify(Object.keys(object).sort()) != JSON.stringify(Object.keys(constraints).sort())) throw { error: 'object_not_exact' };
 
   // Check if required option is set and check if the object contains those values
   if (options?.required && !options?.required.every((key) => Object.keys(object).includes(key))) throw { error: 'invalid_data_provided' };
