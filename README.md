@@ -15,14 +15,15 @@
 
 #### Validation Constraints
 
-| Name        | Purpose                                             | Type                             | Default |
-| ----------- | --------------------------------------------------- | -------------------------------- | ------- |
-| `lowercase` | Requires the value to be lowercase only             | `boolean`                        | `false` |
-| `uppercase` | Requires the value to be uppercase only             | `boolean`                        | `false` |
-| `number`    | Requires the value to be number only                | `boolean`                        | `false` |
-| `length`    | Requires the value to meet the min or max length    | `{ min?: number, max?: number }` | `null`  |
-| `nullable`  | Specifies if the value is allow to be unset or null | `boolean`                        | `true`  |
-| `type`      | If specified a type the typeof will be compared     | `string`                         | `null`  |
+| Name        | Purpose                                                   | Type                             | Default |
+| ----------- | --------------------------------------------------------- | -------------------------------- | ------- |
+| `email`     | Requires the specified value pass the email specfic regex | `boolean`                        | `false` |
+| `lowercase` | Requires the value to be lowercase only                   | `boolean`                        | `false` |
+| `uppercase` | Requires the value to be uppercase only                   | `boolean`                        | `false` |
+| `number`    | Requires the value to be number only                      | `boolean`                        | `false` |
+| `length`    | Requires the value to meet the min or max length          | `{ min?: number, max?: number }` | `null`  |
+| `nullable`  | Specifies if the value is allow to be unset or null       | `boolean`                        | `true`  |
+| `type`      | If specified a type the typeof will be compared           | `string`                         | `null`  |
 
 ---
 

@@ -1,5 +1,5 @@
 export interface ValidationOptions {
-  exact?: boolean;
+  strict?: boolean;
   required?: string[];
 }
 
