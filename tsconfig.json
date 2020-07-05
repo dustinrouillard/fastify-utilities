@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
+    "target": "es6",
     "module": "commonjs",
     "outDir": "./dist",
     "resolveJsonModule": true,
@@ -10,8 +10,11 @@
     "sourceMap": true,
     "declaration": true,
     "emitDecoratorMetadata": true,
-    "baseUrl": "./",
-    "typeRoots": ["./lib/types", "./node_modules/@types"]
+    "baseUrl": "./lib",
+    "typeRoots": ["./types", "../node_modules/@types"],
+    "paths": {
+      "fetch": ["modules/fetch"]
+    }
   },
-  "include": ["lib/**/*.ts"]
+  "include": ["**/*.ts"]
 }

@@ -21,7 +21,7 @@ export function Error(...optionalParams: any[]) {
 }
 
 export function Debug(...optionalParams: any[]) {
-  if (!process.env.DEBUG?.includes('dustin:*')) return;
+  if (!process.env.DEBUG || !process.env.DEBUG.includes('dustin:*')) return;
 
   let mainContent = optionalParams[0];
   optionalParams.shift();
