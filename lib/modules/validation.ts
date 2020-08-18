@@ -16,9 +16,10 @@ export interface ValidationConstraints {
 }
 
 // We only include the values that need to be true by default here
-const DefaultConstraints = {
+const DefaultConstraints: Partial<ValidationConstraints> = {
   nullable: true,
   trim: true,
+  casing: 'any',
 };
 
 const EmailRegex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -67,7 +68,8 @@ export async function Validate(object: any, constraints: { [key: string]: Valida
     if (config.email && !object[configItem].match(EmailRegex)) validationErrors.push({ field: configItem, error: 'not_an_email' });
 
     // Check if allowed option is set and make sure it is one of the allowed items
-    if (config.allowed && !config.allowed.includes(object[configItem])) validationErrors.push({ field: configItem, error: 'not_allowed_value' });
+    if (config.allowed && !config.allowed.includes(config.casing == 'lower' ? object[configItem].toLowerCase() : config.casing == 'upper' ? object[configItem].toUpperCase() : object[configItem]))
+      validationErrors.push({ field: configItem, error: 'not_allowed_value' });
 
     // Check if casing option is set make sure the value matches the provided case
     if (config.casing && config.casing == 'lower' ? object[configItem].toLowerCase() : config.casing == 'upper' ? object[configItem].toUpperCase() : object[configItem] != object[configItem])
