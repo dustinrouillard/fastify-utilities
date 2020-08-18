@@ -6,13 +6,12 @@ export interface ValidationOptions {
 
 export interface ValidationConstraints {
   email?: boolean;
-  lowercase?: boolean;
-  uppercase?: boolean;
   numbers?: boolean;
   length?: { min?: number; max?: number };
   nullable?: boolean;
   trim?: boolean;
   allowed?: (string | number)[];
+  casing?: 'any' | 'upper' | 'lower';
   type?: 'string' | 'number' | 'bigint' | 'boolean' | 'symbol' | 'undefined' | 'object' | 'function' | 'array';
 }
 
@@ -50,12 +49,6 @@ export async function Validate(object: any, constraints: { [key: string]: Valida
     if (!config.nullable && (typeof object[configItem] === 'undefined' || object[configItem] === '' || object[configItem] === null))
       validationErrors.push({ field: configItem, error: 'value_not_nullable' });
 
-    // Check if lowercase option is set and check if the string is lowercase
-    if (config.lowercase && object[configItem].toLowerCase() !== object[configItem]) validationErrors.push({ field: configItem, error: 'not_lowercase' });
-
-    // Check if uppercase option is set and check if the string is uppercase
-    if (config.uppercase && object[configItem].toUpperCase() !== object[configItem]) validationErrors.push({ field: configItem, error: 'not_uppercase' });
-
     // Check if numbers option is set and check if the string is a number
     if (config.numbers && isNaN(object[configItem])) validationErrors.push({ field: configItem, error: 'not_a_number' });
 
@@ -75,6 +68,10 @@ export async function Validate(object: any, constraints: { [key: string]: Valida
 
     // Check if allowed option is set and make sure it is one of the allowed items
     if (config.allowed && !config.allowed.includes(object[configItem])) validationErrors.push({ field: configItem, error: 'not_allowed_value' });
+
+    // Check if casing option is set make sure the value matches the provided case
+    if (config.casing && config.casing == 'lower' ? object[configItem].toLowerCase() : config.casing == 'upper' ? object[configItem].toUpperCase() : object[configItem] != object[configItem])
+      validationErrors.push({ field: configItem, error: 'casing_does_not_match' });
   }
 
   if (validationErrors.length <= 0) return true;
