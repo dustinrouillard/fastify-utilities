@@ -23,6 +23,7 @@
 | `number`    | Requires the value to be number only                      | `boolean`                        | `false` |
 | `length`    | Requires the value to meet the min or max length          | `{ min?: number, max?: number }` | `null`  |
 | `nullable`  | Specifies if the value is allow to be unset or null       | `boolean`                        | `true`  |
+| `allowed`   | List of strings or numbers that are allowed               | `(string| number)[]`             | `null`  |
 | `type`      | If specified a type the typeof will be compared           | `string`                         | `null`  |
 
 ---

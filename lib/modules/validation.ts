@@ -12,6 +12,7 @@ export interface ValidationConstraints {
   length?: { min?: number; max?: number };
   nullable?: boolean;
   trim?: boolean;
+  allowed?: (string | number)[];
   type?: 'string' | 'number' | 'bigint' | 'boolean' | 'symbol' | 'undefined' | 'object' | 'function' | 'array';
 }
 
@@ -71,6 +72,9 @@ export async function Validate(object: any, constraints: { [key: string]: Valida
 
     // Check if email option is set and check if the string is a valid email
     if (config.email && !object[configItem].match(EmailRegex)) validationErrors.push({ field: configItem, error: 'not_an_email' });
+
+    // Check if allowed option is set and make sure it is one of the allowed items
+    if (config.allowed && !config.allowed.includes(object[configItem])) validationErrors.push({ field: configItem, error: 'not_allowed_value' });
   }
 
   if (validationErrors.length <= 0) return true;
