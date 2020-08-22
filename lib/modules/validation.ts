@@ -26,7 +26,6 @@ const EmailRegex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\
 
 export async function Validate(object: any, constraints: { [key: string]: ValidationConstraints }, options?: ValidationOptions) {
   if (typeof object != 'object') throw { error: 'not_an_object' };
-  if (Object.keys(object).length <= 0) throw { error: 'missing_object' };
 
   // Check if exact option is set and check if the string is set
   if (options?.exact && JSON.stringify(Object.keys(object).sort()) != JSON.stringify(Object.keys(constraints).sort())) throw { error: 'object_not_exact' };
