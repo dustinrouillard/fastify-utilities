@@ -55,7 +55,8 @@ export async function Validate(object: any, constraints: { [key: string]: Valida
     // Check if type option and then compare the typeof
     if (config.type && config.type == 'array' && object[configItem] && (typeof object[configItem] != 'object' || object[configItem].length == undefined))
       validationErrors.push({ field: configItem, error: 'incorrect_type' });
-    if (config.type && config.type != 'array' && object[configItem] && typeof object[configItem] != config.type) validationErrors.push({ field: configItem, error: 'incorrect_type' });
+    if (config.type && config.type != 'array' && typeof object[configItem] != 'undefined' && typeof object[configItem] != config.type)
+      validationErrors.push({ field: configItem, error: 'incorrect_type' });
 
     // Check if there is a length config first then check the min length and make sure the string is atleast that long
     if (config.length && config.length.min && object[configItem] && object[configItem].length < config.length.min) validationErrors.push({ field: configItem, error: 'does_not_meet_minimum_length' });
@@ -67,11 +68,21 @@ export async function Validate(object: any, constraints: { [key: string]: Valida
     if (config.email && !object[configItem].match(EmailRegex)) validationErrors.push({ field: configItem, error: 'not_an_email' });
 
     // Check if allowed option is set and make sure it is one of the allowed items
-    if (config.allowed && !config.allowed.includes(config.casing == 'lower' ? object[configItem].toLowerCase() : config.casing == 'upper' ? object[configItem].toUpperCase() : object[configItem]))
+    if (
+      config.allowed &&
+      typeof object[configItem] != 'undefined' &&
+      !config.allowed.includes(config.casing == 'lower' ? object[configItem].toLowerCase() : config.casing == 'upper' ? object[configItem].toUpperCase() : object[configItem])
+    )
       validationErrors.push({ field: configItem, error: 'not_allowed_value' });
 
     // Check if casing option is set make sure the value matches the provided case
-    if (config.casing && config.casing == 'lower' ? object[configItem].toLowerCase() : config.casing == 'upper' ? object[configItem].toUpperCase() : object[configItem] != object[configItem])
+    if (
+      config.casing && typeof object[configItem] == 'string' && config.casing == 'lower'
+        ? object[configItem].toLowerCase()
+        : config.casing == 'upper'
+        ? object[configItem].toUpperCase()
+        : object[configItem] != object[configItem]
+    )
       validationErrors.push({ field: configItem, error: 'casing_does_not_match' });
   }
 
