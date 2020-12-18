@@ -1,6 +1,6 @@
 {
   "name": "@dustinrouillard/fastify-utilities",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "author": "Dustin Rouillard <code@dustin.sh>",
   "description": "Utilities for dustin.sh fastify boilerplate",
   "main": "dist/index.js",
@@ -14,8 +14,8 @@
   "dependencies": {
     "@types/node-fetch": "^2.5.7",
     "chalk": "^4.0.0",
-    "fastify": "^3.4.1",
-    "fastify-plugin": "^2.3.4",
+    "fastify": "^3.9.2",
+    "fastify-plugin": "^3.0.0",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
