@@ -65,7 +65,7 @@ export async function Validate(object: any, constraints: { [key: string]: Valida
     if (config.length && config.length.max && object[configItem] && object[configItem].length > config.length.max) validationErrors.push({ field: configItem, error: 'exceeds_maximum_length' });
 
     // Check if email option is set and check if the string is a valid email
-    if (config.email && !object[configItem].match(EmailRegex)) validationErrors.push({ field: configItem, error: 'not_an_email' });
+    if (config.email && typeof object[configItem] != 'undefined' && !object[configItem].match(EmailRegex)) validationErrors.push({ field: configItem, error: 'not_an_email' });
 
     // Check if allowed option is set and make sure it is one of the allowed items
     if (
