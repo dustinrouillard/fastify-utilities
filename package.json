@@ -1,6 +1,6 @@
 {
   "name": "@dustinrouillard/fastify-utilities",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "author": "Dustin Rouillard <code@dustin.sh>",
   "description": "Utilities for dustin.sh fastify boilerplate",
   "main": "dist/index.js",
@@ -12,14 +12,14 @@
     "lnk": "yarn build; cp -R package.json README.md LICENSE dist; (cd dist && yarn link)"
   },
   "dependencies": {
-    "@types/node-fetch": "^2.5.7",
-    "chalk": "^4.0.0",
-    "fastify": "^3.9.2",
+    "@types/node-fetch": "^2.5.12",
+    "chalk": "^4.1.2",
+    "fastify": "^3.20.1",
     "fastify-plugin": "^3.0.0",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {
-    "@types/node": "^14.0.6"
+    "@types/node": "^16.4.12"
   },
   "_moduleAliases": {
     "fetch": "dist/modules/fetch"
