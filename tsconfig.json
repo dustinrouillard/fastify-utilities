@@ -1,21 +1,17 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "lib": ["ES2016"],
     "module": "commonjs",
-    "outDir": "./dist",
+    "outDir": "dist",
     "resolveJsonModule": true,
     "strict": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "sourceMap": true,
     "declaration": true,
+    "skipLibCheck": true,
     "emitDecoratorMetadata": true,
-    "baseUrl": "./lib",
-    "typeRoots": ["./types", "../node_modules/@types"],
-    "paths": {
-      "fetch": ["modules/fetch"]
-    }
+    "typeRoots": ["./types", "../node_modules/@types"]
   },
-  "include": ["**/*.ts"]
+  "include": ["lib/**/*.ts"]
 }
