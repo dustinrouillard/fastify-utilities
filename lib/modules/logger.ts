@@ -1,10 +1,10 @@
 import chalk, { Color } from 'chalk';
 
 interface LoggerConfig {
-  timestampColor: typeof Color;
-  logColor: typeof Color;
-  errorColor: typeof Color;
-  debugColor: typeof Color;
+  timestampColor: typeof Color | 'reset';
+  logColor: typeof Color | 'reset';
+  errorColor: typeof Color | 'reset';
+  debugColor: typeof Color | 'reset';
   disableColors: boolean;
   debugAnnotation: string;
 }
