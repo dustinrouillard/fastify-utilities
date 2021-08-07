@@ -15,7 +15,7 @@ export function Catch(reply: FastifyReply, data?: any): void {
   return;
 }
 
-export async function Handle(res: FastifyReply, error: Error & { code?: string; status?: number }): Promise<void> {
+export function Handle(res: FastifyReply, error: Error & { code?: string; status?: number }): void {
   if (error && error.code) return Failed(res, error.status || 500, error.code);
   return Catch(res, error);
 }
