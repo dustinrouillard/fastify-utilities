@@ -39,7 +39,22 @@ This logging utility exposes the following methods
 | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `Log`   | `console.log` but with the twist of color,time and other logger benefits                                                                               |
 | `Error` | `console.error` same as log with different colors, and registers as an error on our error tracking                                                     |
-| `Debug` | `console.log` nearly the same as `Log` but with the twist of an env variable check for `DEBUG="dustin:*"` which will allow the output of this log line |
+| `Debug` | `console.log` nearly the same as `Log` but with the twist of an env variable check for `DEBUG="dstn:*"` which will allow the output of this log line   |
+
+#### Changing/disabling colors
+
+Included is a function to change the configuation of the logger, such as the colors or to disable them altogether.
+
+The configurable options are
+
+| Name              | Default |
+| ----------------- | ------- |
+| `timestampColor`  | gray
+| `logColor`        | green
+| `errorColor`      | redBright
+| `debugColor`      | blueBright
+| `disableColors`   | false
+| `debugAnnotation` | dstn
 
 #### Request logging
 
