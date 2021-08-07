@@ -1,6 +1,6 @@
 {
   "name": "@dustinrouillard/fastify-utilities",
-  "version": "1.2.12",
+  "version": "1.2.13",
   "author": "Dustin Rouillard <code@dustin.sh>",
   "description": "Utilities for dustin.sh fastify boilerplate",
   "main": "dist/index.js",
