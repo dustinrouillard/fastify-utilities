@@ -8,9 +8,10 @@ import { Log } from './logger';
 
 interface LoggerConfig {
   ignoredRoutes?: string[];
+  ignoredMethods?: ("GET" | "POST" | "HEAD" | "PATCH" | "DELETE" | "OPTIONS" | "PUT")[];
 }
 
-export function Logger(config: LoggerConfig) {
+export function Logger(config?: LoggerConfig) {
   return fastifyPlugin(function Logger(server: FastifyInstance<Server, IncomingMessage, ServerResponse>, _, next?: () => void) {
     server.addHook('onResponse', (request: FastifyRequest, reply: FastifyReply) => {
       const ipAddress = ParseIp(request);
@@ -20,7 +21,8 @@ export function Logger(config: LoggerConfig) {
       const rawSize = reply.getHeader('content-length');
       const size = ParseBytes(Number(rawSize));
 
-      if (config.ignoredRoutes?.includes(route as string)) return;
+      if (config?.ignoredRoutes?.includes(route as string)) return;
+      if (config?.ignoredMethods?.includes(method as ("GET" | "POST" | "HEAD" | "PATCH" | "DELETE" | "OPTIONS" | "PUT"))) return;
 
       Log(`${method} ${route} - ${code} - ${reply.getResponseTime().toFixed(2)}ms (${size}) - IP: ${ipAddress}`);
     });
