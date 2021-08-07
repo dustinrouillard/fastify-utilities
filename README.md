@@ -69,9 +69,9 @@ The configurable options are
 
 ### Request Responses
 
-| Name      | Response Format                            | Parameters                                                |
-| --------- | ------------------------------------------ | --------------------------------------------------------- |
-| `Success` | `{ success: true, data }`                  | `res: Response, status: number, data?: any`               |
-| `Failed`  | `{ error: true, code, data }`              | `res: Response, status: number, code: string, data?: any` |
-| `Missing` | `{ error: true, code: 'route_not_found' }` | `res: Response`                                           |
-| `Catch`   | `{ error: true, code: 'catch', data }`     | `res: Response, data?: any`                               |
+| Name      | Response Format                                | Parameters                                                    |
+| --------- | ---------------------------------------------- | ------------------------------------------------------------- |
+| `Success` | ```{ success: true, data }```                  | ```res: Response, status: number, data?: any```               |
+| `Failed`  | ```{ error: true, code, data }```              | ```res: Response, status: number, code: string, data?: any``` |
+| `Missing` | ```{ error: true, code: 'route_not_found' }``` | ```res: Response```                                           |
+| `Catch`   | ```{ error: true, code: 'catch', data }```     | ```res: Response, data?: any```                               |
