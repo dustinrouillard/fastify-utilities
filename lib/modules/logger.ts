@@ -5,6 +5,7 @@ interface LoggerConfig {
   logColor: typeof Color | 'reset';
   errorColor: typeof Color | 'reset';
   debugColor: typeof Color | 'reset';
+  disableTimestamp: boolean;
   disableColors: boolean;
   debugAnnotation: string;
 }
@@ -14,6 +15,7 @@ let LoggerConfig: LoggerConfig = {
   logColor: 'green',
   errorColor: 'redBright',
   debugColor: 'blueBright',
+  disableTimestamp: false,
   disableColors: false,
   debugAnnotation: 'dstn'
 };
@@ -33,7 +35,7 @@ export function Log(...optionalParams: any[]) {
   const sep = LoggerConfig.disableColors ? 'L' : `${chalk.blueBright('L')}`;
   const content = LoggerConfig.disableColors ? mainContent : `${chalk[LoggerConfig.logColor](mainContent)}`;
 
-  console.log(`${ts} : ${sep} : ${content}`, ...optionalParams);
+  console.log(`${LoggerConfig.disableTimestamp ? '' : `${ts} : `}${sep} : ${content}`, ...optionalParams);
 }
 
 export function Error(...optionalParams: any[]) {
@@ -47,7 +49,7 @@ export function Error(...optionalParams: any[]) {
   const sep = LoggerConfig.disableColors ? 'E' : `${chalk.red('E')}`;
   const content = LoggerConfig.disableColors ? mainContent : `${chalk[LoggerConfig.errorColor](mainContent)}`;
 
-  console.error(`${ts} : ${sep} : ${content}`, ...optionalParams);
+  console.error(`${LoggerConfig.disableTimestamp ? '' : `${ts} : `}${sep} : ${content}`, ...optionalParams);
 }
 
 export function Debug(...optionalParams: any[]) {
@@ -63,5 +65,5 @@ export function Debug(...optionalParams: any[]) {
   const sep = LoggerConfig.disableColors ? 'D' : `${chalk.magenta('D')}`;
   const content = LoggerConfig.disableColors ? mainContent : `${chalk[LoggerConfig.debugColor](mainContent)}`;
 
-  console.log(`${ts} : ${sep} : ${content}`, ...optionalParams);
+  console.log(`${LoggerConfig.disableTimestamp ? '' : `${ts} : `}${sep} : ${content}`, ...optionalParams);
 }
