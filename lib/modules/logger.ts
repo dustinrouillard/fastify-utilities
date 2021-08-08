@@ -26,44 +26,47 @@ export function SetConfig(new_config: Partial<LoggerConfig>): void {
 
 export function Log(...optionalParams: any[]) {
   let mainContent = optionalParams[0];
-  optionalParams.shift();
+  if (typeof mainContent == 'string') optionalParams.shift();
+  else mainContent = null;
 
   let currentTime = new Date();
   let timestamp = `${currentTime.toTimeString().split(' ').slice(0, 2).join('-')} ${currentTime.toLocaleDateString().replace(/\//g, '-')}`;
 
   const ts = LoggerConfig.disableColors ? `[${timestamp}]` : `${chalk[LoggerConfig.timestampColor](`[${timestamp}]`)}`;
   const sep = LoggerConfig.disableColors ? 'L' : `${chalk.blueBright('L')}`;
-  const content = LoggerConfig.disableColors ? mainContent : `${chalk[LoggerConfig.logColor](mainContent)}`;
+  const content = mainContent ? LoggerConfig.disableColors ? mainContent : `${chalk[LoggerConfig.logColor](mainContent)}` : null;
 
-  console.log(`${LoggerConfig.disableTimestamp ? '' : `${ts} : `}${sep} : ${content}`, ...optionalParams);
+  console.log(`${LoggerConfig.disableTimestamp ? '' : `${ts} : `}${sep} :${content ? ` ${content}` : ''}`, ...optionalParams);
 }
 
 export function Error(...optionalParams: any[]) {
   let mainContent = optionalParams[0];
-  optionalParams.shift();
+  if (typeof mainContent == 'string') optionalParams.shift();
+  else mainContent = null;
 
   let currentTime = new Date();
   let timestamp = `${currentTime.toTimeString().split(' ').slice(0, 2).join('-')} ${currentTime.toLocaleDateString().replace(/\//g, '-')}`;
 
   const ts = LoggerConfig.disableColors ? `[${timestamp}]` : `${chalk[LoggerConfig.timestampColor](`[${timestamp}]`)}`;
   const sep = LoggerConfig.disableColors ? 'E' : `${chalk.red('E')}`;
-  const content = LoggerConfig.disableColors ? mainContent : `${chalk[LoggerConfig.errorColor](mainContent)}`;
+  const content = mainContent ? LoggerConfig.disableColors ? mainContent : `${chalk[LoggerConfig.errorColor](mainContent)}` : null;
 
-  console.error(`${LoggerConfig.disableTimestamp ? '' : `${ts} : `}${sep} : ${content}`, ...optionalParams);
+  console.error(`${LoggerConfig.disableTimestamp ? '' : `${ts} : `}${sep} :${content ? ` ${content}` : ''}`, ...optionalParams);
 }
 
 export function Debug(...optionalParams: any[]) {
   if (!process.env.DEBUG || !process.env.DEBUG.includes(`${LoggerConfig.debugAnnotation}:*`)) return;
 
   let mainContent = optionalParams[0];
-  optionalParams.shift();
+  if (typeof mainContent == 'string') optionalParams.shift();
+  else mainContent = null;
 
   let currentTime = new Date();
   let timestamp = `${currentTime.toTimeString().split(' ').slice(0, 2).join('-')} ${currentTime.toLocaleDateString().replace(/\//g, '-')}`;
 
   const ts = LoggerConfig.disableColors ? `[${timestamp}]` : `${chalk[LoggerConfig.timestampColor](`[${timestamp}]`)}`;
   const sep = LoggerConfig.disableColors ? 'D' : `${chalk.magenta('D')}`;
-  const content = LoggerConfig.disableColors ? mainContent : `${chalk[LoggerConfig.debugColor](mainContent)}`;
+  const content = mainContent ? LoggerConfig.disableColors ? mainContent : `${chalk[LoggerConfig.debugColor](mainContent)}` : null;
 
-  console.log(`${LoggerConfig.disableTimestamp ? '' : `${ts} : `}${sep} : ${content}`, ...optionalParams);
+  console.log(`${LoggerConfig.disableTimestamp ? '' : `${ts} : `}${sep} :${content ? ` ${content}` : ''}`, ...optionalParams);
 }
