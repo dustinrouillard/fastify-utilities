@@ -25,7 +25,8 @@ export function Logger(config?: LoggerConfig) {
       let user = '';
       if (config?.userIdVariable) {
         const variables = config.userIdVariable.split('.');
-        const variable = request[variables[0] as keyof typeof request][variables[1] as keyof typeof request];
+        let variable = request[variables[0] as keyof typeof request]
+        if (variable) variable = variable[variables[1] as keyof typeof request];
         user = config?.userIdVariable && variable ? ` - User: ${variable}` : '';
       }
 
