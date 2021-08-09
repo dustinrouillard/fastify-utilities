@@ -22,10 +22,17 @@ export function Logger(config?: LoggerConfig) {
       const rawSize = reply.getHeader('content-length');
       const size = ParseBytes(Number(rawSize));
 
+      let user = '';
+      if (config?.userIdVariable) {
+        const variables = config.userIdVariable.split('.');
+        const variable = request[variables[0] as keyof typeof request][variables[1] as keyof typeof request];
+        user = config?.userIdVariable && variable ? ` - User: ${variable}` : '';
+      }
+
       if (config?.ignoredRoutes?.includes(route as string)) return;
       if (config?.ignoredMethods?.includes(method as ("GET" | "POST" | "HEAD" | "PATCH" | "DELETE" | "OPTIONS" | "PUT"))) return;
 
-      Log(`${method} ${route} - ${code} - ${reply.getResponseTime().toFixed(2)}ms (${size}) - IP: ${ipAddress}${config?.userIdVariable && request[config.userIdVariable as keyof typeof request] ? ` User: ${request[config.userIdVariable as keyof typeof request]}` : ''}`);
+      Log(`${method} ${route} - ${code} - ${reply.getResponseTime().toFixed(2)}ms (${size}) - IP: ${ipAddress}${user}`);
     });
 
     if (next) next();
