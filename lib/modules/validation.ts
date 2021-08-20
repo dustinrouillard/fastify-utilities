@@ -37,7 +37,7 @@ export async function Validate(object: any, constraints: { [key: string]: Valida
   if (typeof object != 'object') throw { error: 'not_an_object' };
 
   // Check if exact option is set and check if the string is set
-  if (options?.exact && JSON.stringify(Object.keys(object).sort()) != JSON.stringify(Object.keys(constraints).sort())) throw { error: 'object_not_exact' };
+  if (options?.exact && JSON.stringify(Object.keys(object).sort()) != JSON.stringify(Object.keys(constraints).sort())) throw { error: 'object_not_exact', missing: Object.keys(constraints).filter(k => !Object.keys(object).includes(k)) };
 
   // Check if required option is set and check if the object contains those values
   if (options?.required && !(typeof options.required == 'object' ? options.required : Object.keys(constraints)).every((key) => Object.keys(object).includes(key)))
@@ -123,8 +123,8 @@ export async function Validate(object: any, constraints: { [key: string]: Valida
       config.casing && typeof object[configItem] == 'string' && config.casing == 'lower'
         ? object[configItem].toLowerCase()
         : config.casing == 'upper'
-        ? object[configItem].toUpperCase()
-        : object[configItem] != object[configItem]
+          ? object[configItem].toUpperCase()
+          : object[configItem] != object[configItem]
     )
       validationErrors.push({ field: configItem, error: config.options?.code || 'casing_does_not_match' });
   }
