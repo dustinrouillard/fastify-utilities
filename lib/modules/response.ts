@@ -1,12 +1,14 @@
 import { FastifyReply } from 'fastify';
 
-export function Success(reply: FastifyReply, status: number, data?: any): void {
-  reply.code(status).send({ success: true, data });
+export function Success(reply: FastifyReply, status: number, data?: any, override?: boolean): void {
+  if (override) reply.code(status).send(data);
+  else reply.code(status).send({ success: true, data });
   return;
 }
 
-export function Failed(reply: FastifyReply, status: number, code: string, data?: any): void {
-  reply.code(status).send({ error: true, code, data });
+export function Failed(reply: FastifyReply, status: number, code: string, data?: any, override?: boolean): void {
+  if (override) reply.code(status).send(data);
+  else reply.code(status).send({ error: true, code, data });
   return;
 }
 
